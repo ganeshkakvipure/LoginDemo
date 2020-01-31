@@ -100,6 +100,13 @@ public class DataRepository implements RemoteDataProvider, LocalDataProvider {
         return utils.isNetworkAvailable(App.getContext());
     }
 
+    /**
+     * Call Login API and send Customer Model to UI on success
+     * @param loginRequestModel
+     * @param success
+     * @param error
+     * @return
+     */
 
     @Override
     public Disposable authenticateUser(LoginRequestModel loginRequestModel, Consumer<CustomerModel> success, Consumer<Throwable> error) {

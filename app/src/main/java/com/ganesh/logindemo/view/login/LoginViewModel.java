@@ -19,28 +19,32 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
     private static final String TAG = LoginViewModel.class.getSimpleName();
 
 
+    /**
+     * Valid user input and call login API
+     * @param loginRequestModel
+     */
     public void onLoginClick(LoginRequestModel loginRequestModel) {
         if (isValid(loginRequestModel)) {
             dialogMessage.setValue(App.getContext().getString(R.string.msg_loading_dialog_login));
             dialogVisibility.setValue(true);
-            login(loginRequestModel);
+            compositeDisposable.add(DataRepository.getInstance().authenticateUser(loginRequestModel, customerModel -> {
+                SPManager.getInstance().setIsLogin(true);
+                SPManager.getInstance().setCustomerName(customerModel.getCustomerName());
+                SPManager.getInstance().setUserID(customerModel.getUserId());
+                dialogVisibility.setValue(false);
+                mNavigator.onLoginSuccess();
+            }, this::checkError));
 
 
         }
 
     }
 
-
-    private void login(LoginRequestModel loginRequestModel) {
-        compositeDisposable.add(DataRepository.getInstance().authenticateUser(loginRequestModel, customerModel -> {
-            SPManager.getInstance().setIsLogin(true);
-            SPManager.getInstance().setCustomerName(customerModel.getCustomerName());
-            SPManager.getInstance().setUserID(customerModel.getUserId());
-            dialogVisibility.setValue(false);
-            mNavigator.onLoginSuccess();
-        }, this::checkError));
-    }
-
+    /**
+     * Validate user input for username and password
+     * @param loginRequestModel
+     * @return
+     */
 
     private boolean isValid(LoginRequestModel loginRequestModel) {
         if (TextUtils.isEmpty(loginRequestModel.getUserName())) {
