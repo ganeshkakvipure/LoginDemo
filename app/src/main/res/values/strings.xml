@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">LoginDemo</string>
+
+    <!-- Common -->
+    <string name="no_internet_connection">No Internet connection</string>
+    <string name="poor_internet_connection">Poor Internet connection</string>
+    <string name="no_internet_connection_msg">Sorry, No Internet connection detected. Please reconnect and try again.</string>
+    <string name="failed_con_server">Failed to connect to server.</string>
+    <string name="server_error">Something went wrong please try again later</string>
+    <string name="title_logout">Logout</string>
+    <string name="msg_logout">Do you want to logout?</string>
+
+
+    <!--Error Msg -->
+    <string name="error_title">Opps!</string>
+    <string name="error_invalid_user">Invalid username and password</string>
+    <string name="error_empty_username">Please enter username</string>
+    <string name="error_empty_password">Please enter password</string>
+
+
+    <!-- Custom Dialog  -->
+    <string name="btn_negative_custom_dialog">No</string>
+    <string name="btn_positive_custom_dialog">Yes</string>
+    <string name="btn_ok_custom_dialog">OK</string>
+
+    <!--Loading dialog message -->
+    <string name="msg_loading_dialog_login">Login...</string>
+
+    <!-- Activity title -->
+    <string name="title_activity_home">Home</string>
+    <string name="title_activity_login">Login</string>
+
+
+    <!-- Login -->
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="btn_text_sign_in">Login</string>
+
+    <!--Home-->
+    <string name="user_welcome">Hello\n%s</string>
+
+</resources>
