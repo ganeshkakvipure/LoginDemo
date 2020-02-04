@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="customerName"
+            name="userID"
             type="String" />
     </data>
 
@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@{String.format(@string/user_welcome,customerName)}"
+            android:text="@{String.format(@string/user_welcome,userID)}"
             android:textColor="@color/text_primary"
             android:textSize="@dimen/dimen_16sp"
             app:layout_constraintBottom_toBottomOf="parent"

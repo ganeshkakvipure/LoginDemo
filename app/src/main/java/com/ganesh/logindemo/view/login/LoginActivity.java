@@ -2,7 +2,6 @@ package com.ganesh.logindemo.view.login;
 
 
 import android.content.Intent;
-import android.view.WindowManager;
 
 import com.ganesh.logindemo.R;
 import com.ganesh.logindemo.common.base.BaseActivity;
@@ -22,14 +21,15 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
 
     @Override
     public int getLayoutID() {
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         return R.layout.activity_login;
     }
 
     @Override
     public void onBinding() {
+        setToolbar(mBinding.toolbar, false, getString(R.string.title_activity_login));
         mBinding.setModel(new LoginRequestModel());
         mBinding.setViewModel(mViewModel);
+
     }
 
     @Override
@@ -41,7 +41,6 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     public BaseNavigator getNavigatorReference() {
         return this;
     }
-
 
     @Override
     public void onUsernameError() {
@@ -62,13 +61,16 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     }
 
     @Override
+    public void onLoginFailed() {
+        Utils.getInstance().hideKeypad(mContext);
+        Utils.getInstance().showErrorMsg(mContext, getString(R.string.error_invalid_user));
+    }
+
+    @Override
     public void onError(String errorMessage) {
         Utils.getInstance().showErrorMsg(mContext, errorMessage);
     }
 
-    @Override
-    public void onNoInternetConnection() {
-        Utils.getInstance().showNoInternetMsg(mContext);
-    }
+
 }
 

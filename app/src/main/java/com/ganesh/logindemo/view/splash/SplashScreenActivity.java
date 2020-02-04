@@ -1,7 +1,6 @@
 package com.ganesh.logindemo.view.splash;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.view.WindowManager;
@@ -9,16 +8,16 @@ import android.view.WindowManager;
 import com.ganesh.logindemo.R;
 import com.ganesh.logindemo.common.base.BaseActivity;
 import com.ganesh.logindemo.common.base.BaseNavigator;
+import com.ganesh.logindemo.common.base.BaseViewModel;
 import com.ganesh.logindemo.common.utils.SPManager;
 import com.ganesh.logindemo.databinding.ActivitySplashScreenBinding;
 import com.ganesh.logindemo.view.home.HomeActivity;
 import com.ganesh.logindemo.view.login.LoginActivity;
 
-public class SplashScreenActivity extends BaseActivity<ActivitySplashScreenBinding, SplashViewModel> implements SplashNavigator {
-    private static final String TAG = SplashScreenActivity.class.getSimpleName();
+public class SplashScreenActivity extends BaseActivity<ActivitySplashScreenBinding, BaseViewModel>  {
     // Splash screen timer
     private static int SPLASH_TIME_OUT = 2000;
-    private Context mContext;
+
 
     @Override
     public int getLayoutID() {
@@ -52,22 +51,12 @@ public class SplashScreenActivity extends BaseActivity<ActivitySplashScreenBindi
 
     @Override
     public Class getViewModel() {
-        return SplashViewModel.class;
+        return BaseViewModel.class;
     }
 
     @Override
     public BaseNavigator getNavigatorReference() {
-        return SplashScreenActivity.this;
+        return null;
     }
 
-
-    @Override
-    public void onError(String errorMessage) {
-
-    }
-
-    @Override
-    public void onNoInternetConnection() {
-
-    }
 }

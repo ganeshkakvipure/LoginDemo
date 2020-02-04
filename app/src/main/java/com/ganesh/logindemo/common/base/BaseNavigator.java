@@ -7,6 +7,4 @@ package com.ganesh.logindemo.common.base;
 public interface BaseNavigator {
 
     void onError(String errorMessage);
-
-    void onNoInternetConnection();
 }

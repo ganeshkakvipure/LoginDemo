@@ -10,11 +10,10 @@ import com.ganesh.logindemo.common.base.App;
  * Created by Ganesh on 23/11/17.
  */
 public class SPManager {
-    private static SPManager myManager;
+    private static SPManager INSTANCE;
     private static SharedPreferences s;
 
     private String IS_LOGIN = "isLogin";
-    private String CUSTOMER_NAME = "customerName";
    private String  USER_ID="userId";
 
 
@@ -24,7 +23,16 @@ public class SPManager {
     }
 
     public static SPManager getInstance() {
-        return myManager != null ? myManager : new SPManager(App.getContext());
+
+        if (INSTANCE == null) {
+            synchronized (SPManager.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new SPManager(App.getContext());
+                }
+            }
+        }
+        return INSTANCE;
+        
     }
 
     private void saveString(String key, String data) {
@@ -44,22 +52,12 @@ public class SPManager {
         editor.putBoolean(key, data);
         editor.apply();
     }
-
-    private void delete(String key) {
-        SharedPreferences.Editor editor = s.edit();
-        //editor.putString(key, "null");
-        editor.remove(key);
-        //editor.clear();
-        editor.apply();
-    }
+    
 
     private String retrieveString(String key) {
         return s.getString(key, "");
     }
-
-    private int retrieveInt(String key) {
-        return s.getInt(key, 0);
-    }
+    
 
     private boolean retrieveBool(String key) {
         return s.getBoolean(key, false);
@@ -85,15 +83,6 @@ public class SPManager {
         SharedPreferences.Editor editor = s.edit();
         editor.clear();
         editor.apply();
-    }
-
-
-    public String getCustomerName() {
-        return retrieveString(CUSTOMER_NAME);
-    }
-
-    public void setCustomerName(String customerName) {
-        saveString(CUSTOMER_NAME, customerName);
     }
 
 

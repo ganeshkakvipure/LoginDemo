@@ -18,32 +18,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="center"
-            android:background="@color/bg_btn"
-            android:gravity="center"
-            android:text="My App"
-            android:paddingStart="@dimen/dimen_16dp"
-            android:textColor="@color/bg_btn_text"
-            android:textSize="@dimen/dimen_24dp"
-            app:layout_constraintBottom_toTopOf="@id/guidelineScreen"
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-
-            />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineScreen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintGuide_percent="0.2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,7 +31,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_32dp"
-
             android:layout_marginTop="@dimen/dimen_56dp"
             android:layout_marginEnd="@dimen/dimen_32dp"
             android:background="@drawable/bg_edt"
@@ -68,9 +45,8 @@
             android:textColorHint="@color/text_primary"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guidelineScreen" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edtPassword"
@@ -91,7 +67,6 @@
             android:textColorHint="@color/text_primary"
             android:textSize="@dimen/dimen_16sp"
             app:layout_constraintEnd_toEndOf="parent"
-
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edtUsername" />
 

@@ -3,8 +3,6 @@ package com.ganesh.logindemo.view.login;
 
 import android.text.TextUtils;
 
-import com.ganesh.logindemo.R;
-import com.ganesh.logindemo.common.base.App;
 import com.ganesh.logindemo.common.base.BaseViewModel;
 import com.ganesh.logindemo.common.repository.DataRepository;
 import com.ganesh.logindemo.common.utils.SPManager;
@@ -16,23 +14,22 @@ import com.ganesh.logindemo.model.request.LoginRequestModel;
 
 public class LoginViewModel extends BaseViewModel<LoginNavigator> {
 
-    private static final String TAG = LoginViewModel.class.getSimpleName();
-
-
     /**
      * Valid user input and call login API
+     *
      * @param loginRequestModel
      */
     public void onLoginClick(LoginRequestModel loginRequestModel) {
         if (isValid(loginRequestModel)) {
-            dialogMessage.setValue(App.getContext().getString(R.string.msg_loading_dialog_login));
-            dialogVisibility.setValue(true);
-            compositeDisposable.add(DataRepository.getInstance().authenticateUser(loginRequestModel, customerModel -> {
-                SPManager.getInstance().setIsLogin(true);
-                SPManager.getInstance().setCustomerName(customerModel.getCustomerName());
-                SPManager.getInstance().setUserID(customerModel.getUserId());
-                dialogVisibility.setValue(false);
-                mNavigator.onLoginSuccess();
+            compositeDisposable.add(DataRepository.getInstance().authenticateUser(loginRequestModel, isLoginSuccess -> {
+                if (isLoginSuccess) {
+                    SPManager.getInstance().setIsLogin(true);
+                    SPManager.getInstance().setUserID(loginRequestModel.getUserName());
+                    mNavigator.onLoginSuccess();
+                } else {
+                    mNavigator.onLoginFailed();
+                }
+
             }, this::checkError));
 
 
@@ -42,6 +39,7 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
 
     /**
      * Validate user input for username and password
+     *
      * @param loginRequestModel
      * @return
      */
@@ -56,6 +54,7 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
         }
         return true;
     }
+
 
 
 }
