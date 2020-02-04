@@ -3,6 +3,7 @@
 
     <!-- Common -->
     <string name="title_logout">Logout</string>
+    <string name="error">Something went wrong</string>
 
 
     <!--Error Msg -->

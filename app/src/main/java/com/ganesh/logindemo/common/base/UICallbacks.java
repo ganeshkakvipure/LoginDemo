@@ -12,7 +12,4 @@ public interface UICallbacks {
 
     Class getViewModel();
 
-    BaseNavigator getNavigatorReference();
-
-
 }

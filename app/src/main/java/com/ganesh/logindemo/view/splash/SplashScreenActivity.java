@@ -7,7 +7,6 @@ import android.view.WindowManager;
 
 import com.ganesh.logindemo.R;
 import com.ganesh.logindemo.common.base.BaseActivity;
-import com.ganesh.logindemo.common.base.BaseNavigator;
 import com.ganesh.logindemo.common.base.BaseViewModel;
 import com.ganesh.logindemo.common.utils.SPManager;
 import com.ganesh.logindemo.databinding.ActivitySplashScreenBinding;
@@ -54,9 +53,6 @@ public class SplashScreenActivity extends BaseActivity<ActivitySplashScreenBindi
         return BaseViewModel.class;
     }
 
-    @Override
-    public BaseNavigator getNavigatorReference() {
-        return null;
-    }
+
 
 }

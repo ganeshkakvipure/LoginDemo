@@ -40,7 +40,6 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         mContext=this;
         mBinding = DataBindingUtil.setContentView(BaseActivity.this, getLayoutID());
         mViewModel = (V) new ViewModelProvider(BaseActivity.this).get(getViewModel());
-        mViewModel.setNavigator(getNavigatorReference());
         onBinding();
     }
 

@@ -5,7 +5,6 @@ import android.content.Intent;
 
 import com.ganesh.logindemo.R;
 import com.ganesh.logindemo.common.base.BaseActivity;
-import com.ganesh.logindemo.common.base.BaseNavigator;
 import com.ganesh.logindemo.common.utils.Utils;
 import com.ganesh.logindemo.databinding.ActivityLoginBinding;
 import com.ganesh.logindemo.model.request.LoginRequestModel;
@@ -15,7 +14,7 @@ import com.ganesh.logindemo.view.home.HomeActivity;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewModel> implements LoginNavigator {
+public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewModel>  {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
 
@@ -30,6 +29,31 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
         mBinding.setModel(new LoginRequestModel());
         mBinding.setViewModel(mViewModel);
 
+        mViewModel.getStatusMutableLiveData().observe(this, status -> {
+            switch (status){
+                case SUCCESS:
+                    onLoginSuccess();
+                    break;
+
+                case FAILED:
+                    onLoginFailed();
+                    break;
+
+                case ERROR_USER_ID:
+                    onUsernameError();
+                    break;
+
+                case ERROR_PASSWORD:
+                    onPasswordError();
+                    break;
+
+                case ERROR:
+                    onError();
+                    break;
+            }
+        });
+
+
     }
 
     @Override
@@ -37,22 +61,21 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
         return LoginViewModel.class;
     }
 
-    @Override
-    public BaseNavigator getNavigatorReference() {
-        return this;
-    }
 
-    @Override
+
     public void onUsernameError() {
         Utils.getInstance().showErrorMsg(mContext, getString(R.string.error_empty_username));
     }
 
-    @Override
+
     public void onPasswordError() {
         Utils.getInstance().showErrorMsg(mContext, getString(R.string.error_empty_password));
     }
 
-    @Override
+    public void onError() {
+        Utils.getInstance().showErrorMsg(mContext, getString(R.string.error));
+    }
+
     public void onLoginSuccess() {
         Intent intent;
         intent = new Intent(mContext, HomeActivity.class);
@@ -60,16 +83,12 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
         finish();
     }
 
-    @Override
+
     public void onLoginFailed() {
         Utils.getInstance().hideKeypad(mContext);
         Utils.getInstance().showErrorMsg(mContext, getString(R.string.error_invalid_user));
     }
 
-    @Override
-    public void onError(String errorMessage) {
-        Utils.getInstance().showErrorMsg(mContext, errorMessage);
-    }
 
 
 }

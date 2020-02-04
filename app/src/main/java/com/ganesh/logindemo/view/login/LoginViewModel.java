@@ -8,11 +8,19 @@ import com.ganesh.logindemo.common.repository.DataRepository;
 import com.ganesh.logindemo.common.utils.SPManager;
 import com.ganesh.logindemo.model.request.LoginRequestModel;
 
+import androidx.lifecycle.MutableLiveData;
+
 /**
  * Created by Ganesh on 3/1/2018.
  */
 
-public class LoginViewModel extends BaseViewModel<LoginNavigator> {
+public class LoginViewModel extends BaseViewModel {
+
+    private MutableLiveData<Status> statusMutableLiveData=new MutableLiveData<>();
+
+    public MutableLiveData<Status> getStatusMutableLiveData() {
+        return statusMutableLiveData;
+    }
 
     /**
      * Valid user input and call login API
@@ -25,12 +33,12 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
                 if (isLoginSuccess) {
                     SPManager.getInstance().setIsLogin(true);
                     SPManager.getInstance().setUserID(loginRequestModel.getUserName());
-                    mNavigator.onLoginSuccess();
+                    statusMutableLiveData.setValue(Status.SUCCESS);
                 } else {
-                    mNavigator.onLoginFailed();
+                    statusMutableLiveData.setValue(Status.FAILED);
                 }
 
-            }, this::checkError));
+            }, throwable -> statusMutableLiveData.setValue(Status.ERROR)));
 
 
         }
@@ -46,15 +54,18 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
 
     private boolean isValid(LoginRequestModel loginRequestModel) {
         if (TextUtils.isEmpty(loginRequestModel.getUserName())) {
-            mNavigator.onUsernameError();
+            statusMutableLiveData.setValue(Status.ERROR_USER_ID);
             return false;
         } else if (TextUtils.isEmpty(loginRequestModel.getPassword())) {
-            mNavigator.onPasswordError();
+            statusMutableLiveData.setValue(Status.ERROR_PASSWORD);
             return false;
         }
         return true;
     }
 
 
+    enum Status{
+        ERROR,ERROR_USER_ID,ERROR_PASSWORD,SUCCESS,FAILED
+    }
 
 }
